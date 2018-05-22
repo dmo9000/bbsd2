@@ -31,8 +31,8 @@ int AcceptThread::ThreadInitiate()
 void AcceptThread::ThreadMain()
 {
     int optval = 1;
-		int flags = 0;
-		int newsockfd = -1;
+    int flags = 0;
+    int newsockfd = -1;
 
     cout << "+++ AcceptThread main thread started" << endl;
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -45,7 +45,7 @@ void AcceptThread::ThreadMain()
 
     if (setsockopt(sockfd,SOL_SOCKET,SO_REUSEADDR,&optval,sizeof(int)) == -1) {
         perror("setsockopt") ;
-				assert(NULL);
+        assert(NULL);
     }
 
     memset((char *) &serv_addr, 0, sizeof(serv_addr));
@@ -56,24 +56,24 @@ void AcceptThread::ThreadMain()
     if (bind(sockfd, (struct sockaddr *) &serv_addr,
              sizeof(serv_addr)) < 0) {
         cout << "ERROR on binding" << endl;
-				assert(NULL);
+        assert(NULL);
     }
 
-		listen(sockfd, CONNECT_BACKLOG);
+    listen(sockfd, CONNECT_BACKLOG);
 
     flags = fcntl(sockfd, F_GETFL, 0);
     /* fcntl(sockfd, F_SETFL, flags | O_NONBLOCK); */
 
 
     while (1) {
-			clilen = sizeof cli_addr;
-			newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
-			cout << "    accepted new connection on fd " << newsockfd << endl;
-	    auto NewEchoThread = std::make_unique<EchoThread>();
-			/* TCP connections have a single file descriptor, share for read/write */
-			NewEchoThread->SetRSockFD(newsockfd);
-			NewEchoThread->SetWSockFD(newsockfd);
-   	 	NewEchoThread->ThreadInitiate();
+        clilen = sizeof cli_addr;
+        newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
+        cout << "    accepted new connection on fd " << newsockfd << endl;
+        auto NewEchoThread = std::make_unique<EchoThread>();
+        /* TCP connections have a single file descriptor, share for read/write */
+        NewEchoThread->SetRSockFD(newsockfd);
+        NewEchoThread->SetWSockFD(newsockfd);
+        NewEchoThread->ThreadInitiate();
     }
 }
 

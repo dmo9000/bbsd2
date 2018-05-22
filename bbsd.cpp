@@ -1,5 +1,7 @@
 #include "bbsd.h"
 
+vector<NetThread*> NetworkThreads;
+
 int main(int argc, char *argv[])
 {
     cout << "BBSD/2 Started." << endl;

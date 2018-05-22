@@ -1,5 +1,7 @@
 #include "bbsd.h"
 
+extern vector<NetThread*> NetworkThreads;
+
 EchoThread::EchoThread()
 {
     cout << "+++ EchoThread created" << endl;
@@ -41,16 +43,16 @@ void EchoThread::ThreadMain()
 
 int EchoThread::SetRSockFD(int fd)
 {
-	cout << "+++ EchoThread::SetRsockFD = " << fd << endl;
-	rsockfd = fd;
-	return 1;
+    cout << "+++ EchoThread::SetRsockFD = " << fd << endl;
+    rsockfd = fd;
+    return 1;
 }
 
 int EchoThread::SetWSockFD(int fd)
 {
-	cout << "+++ EchoThread::SetRsockFD = " << fd << endl;
-	wsockfd = fd;
-	return 1;
+    cout << "+++ EchoThread::SetRsockFD = " << fd << endl;
+    wsockfd = fd;
+    return 1;
 }
 
 
