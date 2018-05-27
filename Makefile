@@ -1,6 +1,6 @@
 CPP=g++
-#CPPFLAGS=-std=c++14 -g -ggdb 
-CPPFLAGS=-std=c++14 
+CPPFLAGS=-std=c++14 -g -ggdb 
+#CPPFLAGS=-std=c++14 
 OBJECTS=object.o thread.o netthread.o acceptthread.o echothread.o bbsd.o
 LDFLAGS=-pthread
 HEADERS := $(shell ls -1 *.h)

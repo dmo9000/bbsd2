@@ -78,6 +78,8 @@ void AcceptThread::ThreadMain()
         NewEchoThread->ThreadInitiate();
         EchoThreads.push_back(std::move(NewEchoThread)); 
     }
+
+    printf("AcceptThread Terminating!\n");
 }
 
 int AcceptThread::SetListenPort(int port)

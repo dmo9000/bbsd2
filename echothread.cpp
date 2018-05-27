@@ -32,15 +32,31 @@ int EchoThread::ThreadInitiate()
 void EchoThread::ThreadMain()
 {
     int wr = 0;
+    int st = 0;
     cout << "+++ EchoThread main thread started" << endl;
     while (1) {
         cout << "+++ EchoThread TICK (" << rsockfd << "," << wsockfd << ")" << endl;
-        wr = write(wsockfd, "ECHO\n", 5); 
+        st = fcntl(wsockfd, F_GETFD);
+        cout << "+++ Socket status = " << st << endl;
+        wr = write(wsockfd, "ECHO\n", 5);
         if (wr != 5) {
-            printf("FAILURE ON WRITE\n");
-            }
+            cout << "+++ WRITE FAILURE, ERRNO = " << errno << ":" << strerror(errno) << endl;
+            switch(errno) {
+                case 32:
+                    cout << "+++ PIPE WAS BROKEN!" << endl;
+                    pthread_cancel(thread);
+                    break;
+                default:
+                    cout << "+++ UNHANDLED ERRNO CODE, ABORTING" << endl;
+                    assert(NULL);
+                    break;
+                }
+
+
+        }
         sleep(1);
     }
+    printf("ECHOTHREAD, TERMINATING!!\n");
 
 }
 
