@@ -1,6 +1,5 @@
 #include "bbsd.h"
 
-vector<NetThread*> NetworkThreads;
 
 int main(int argc, char *argv[])
 {
@@ -9,6 +8,8 @@ int main(int argc, char *argv[])
     cout << "Creating listener thread ..." << endl;
 
     run_toplevel();
+
+    printf("EXITING ...\n");
 
     exit(0);
 }

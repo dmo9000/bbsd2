@@ -1,6 +1,5 @@
 #include "bbsd.h"
 
-extern vector<NetThread*> NetworkThreads;
 
 EchoThread::EchoThread()
 {
@@ -32,9 +31,14 @@ int EchoThread::ThreadInitiate()
 
 void EchoThread::ThreadMain()
 {
+    int wr = 0;
     cout << "+++ EchoThread main thread started" << endl;
     while (1) {
         cout << "+++ EchoThread TICK (" << rsockfd << "," << wsockfd << ")" << endl;
+        wr = write(wsockfd, "ECHO\n", 5); 
+        if (wr != 5) {
+            printf("FAILURE ON WRITE\n");
+            }
         sleep(1);
     }
 

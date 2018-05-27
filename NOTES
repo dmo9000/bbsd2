@@ -6,4 +6,8 @@ Various alternatives to new/delete depending on C++ version:
 
 	https://www.slideshare.net/sermp/without-new-and-delete
 
+Some ideas on how to keep a vector of unique_ptr's:
+
+    https://stackoverflow.com/questions/29089227/push-back-or-emplace-back-with-stdmake-unique?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
 

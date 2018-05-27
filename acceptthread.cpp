@@ -1,5 +1,7 @@
 #include "bbsd.h"
 
+std::vector<std::unique_ptr<EchoThread>> EchoThreads;
+
 AcceptThread::AcceptThread()
 {
     cout << "+++ AcceptThread created" << endl;
@@ -74,6 +76,7 @@ void AcceptThread::ThreadMain()
         NewEchoThread->SetRSockFD(newsockfd);
         NewEchoThread->SetWSockFD(newsockfd);
         NewEchoThread->ThreadInitiate();
+        EchoThreads.push_back(std::move(NewEchoThread)); 
     }
 }
 
