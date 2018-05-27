@@ -45,6 +45,7 @@ void EchoThread::ThreadMain()
                 case 32:
                     cout << "+++ PIPE WAS BROKEN!" << endl;
                     pthread_cancel(thread);
+                    /* TODO: mark for cleanup? */
                     break;
                 default:
                     cout << "+++ UNHANDLED ERRNO CODE, ABORTING" << endl;
